@@ -1,5 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Formik } from 'formik';
+import { addContact } from 'redux/contactSlice';
 import * as Yup from 'yup';
 import {
   StyledBtn,
@@ -8,8 +9,6 @@ import {
   StyledForm,
   StyledLabel,
 } from './ContactForm.styled';
-import { addContact } from 'redux/contactSlice'
-import { getContacts } from 'redux/selectors';
 
 const contactFormSchema = Yup.object().shape({
   name: Yup.string().required('This field is required!'),
@@ -18,23 +17,21 @@ const contactFormSchema = Yup.object().shape({
     .required('This field is required!'),
 });
 
-
-
 export const ContactForm = () => {
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   return (
     <Formik
-    initialValues={{
+      initialValues={{
         name: '',
         number: '',
       }}
       validationSchema={contactFormSchema}
       onSubmit={(values, actions) => {
-        dispatch(addContact(values))
+        dispatch(addContact(values));
         actions.resetForm();
       }}
-      >
+    >
       <StyledForm>
         <StyledLabel>
           Name
