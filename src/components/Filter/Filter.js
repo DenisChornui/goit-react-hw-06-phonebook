@@ -1,11 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { StyledInput, StyledTitle } from './Filter.styled';
+import { setFilter } from 'redux/filterSlice';
 
-export const Filter = ({ onChange }) => {
-  const dispatch = useDispatch()
-  const contactFilter = evt => {
-    dispatch(evt.target.value);
-  };
+export const Filter = () => {
+  const dispatch = useDispatch();
+  const contactFilter = evt => dispatch(setFilter(evt.target.value));
 
   return (
     <div>

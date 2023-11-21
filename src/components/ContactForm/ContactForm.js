@@ -8,7 +8,7 @@ import {
   StyledForm,
   StyledLabel,
 } from './ContactForm.styled';
-import { addContact } from 'redux/store';
+import { addContact } from 'redux/contactSlice'
 import { getContacts } from 'redux/selectors';
 
 const contactFormSchema = Yup.object().shape({
@@ -21,7 +21,6 @@ const contactFormSchema = Yup.object().shape({
 
 
 export const ContactForm = () => {
-const contacts = useSelector(getContacts)
 const dispatch = useDispatch()
 
   return (

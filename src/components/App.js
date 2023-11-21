@@ -3,7 +3,7 @@ import { ContactForm } from './ContactForm/ContactForm';
 import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
-import { Container, } from './App.styled';
+import { Container } from './App.styled';
 import { useSelector } from 'react-redux';
 
 // const getInitialContacts = () => {
@@ -14,8 +14,6 @@ import { useSelector } from 'react-redux';
 //   return [];
 // };
 export const App = () => {
-
-
   // const [contacts, setContacts] = useState(getInitialContacts);
 
   // const [filter, setFilter] = useState('');
@@ -34,8 +32,6 @@ export const App = () => {
 
   //   setContacts(prevState => [...prevState, { ...newContact, id: nanoid() }]);
   // };
-
-
 
   return (
     <Container>
