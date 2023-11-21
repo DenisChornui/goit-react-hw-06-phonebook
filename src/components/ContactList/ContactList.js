@@ -1,17 +1,33 @@
 import { nanoid } from 'nanoid';
 import { StyledList, StyledBtn } from './ContactList.styled';
+import { useDispatch, useSelector } from 'react-redux';
+import { deleteContact } from 'redux/store';
+import { getContacts, getStatusFilter } from 'redux/selectors';
 
-export const ContactList = ({ items, onDelete }) => {
+export const ContactList = () => {
+  const contacts = useSelector(getContacts);
+  const filter = useSelector(getStatusFilter);
+  const dispatch = useDispatch();
+
+  const filterContacts = contacts.filter(contact =>
+    contact.name.toLowerCase().includes(filter.toLowerCase())
+  );
+
   return (
     <StyledList>
-      {items.map(item => (
-        <li key={nanoid()}>
-          {item.name}: {item.number}
-          <StyledBtn type="button" onClick={() => onDelete(item.id)}>
-            Delete
-          </StyledBtn>
-        </li>
-      ))}
+      {filterContacts.map(contact => {
+        return (
+          <li key={nanoid()}>
+            {contact.name}: {contact.number}
+            <StyledBtn
+              type="button"
+              onClick={() => dispatch(deleteContact(contact.id))}
+            >
+              Delete
+            </StyledBtn>
+          </li>
+        );
+      })}
     </StyledList>
   );
 };

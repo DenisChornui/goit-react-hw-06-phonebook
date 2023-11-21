@@ -4,54 +4,46 @@ import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
 import { Container, } from './App.styled';
+import { useSelector } from 'react-redux';
 
-const getInitialContacts = () => {
-  const saveContacts = localStorage.getItem('contacts');
-  if (saveContacts !== null) {
-    return JSON.parse(saveContacts);
-  }
-  return [];
-};
+// const getInitialContacts = () => {
+//   const saveContacts = localStorage.getItem('contacts');
+//   if (saveContacts !== null) {
+//     return JSON.parse(saveContacts);
+//   }
+//   return [];
+// };
 export const App = () => {
-  const [contacts, setContacts] = useState(getInitialContacts);
 
-  const [filter, setFilter] = useState('');
 
-  useEffect(() => {
-    localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+  // const [contacts, setContacts] = useState(getInitialContacts);
 
-  const addContact = newContact => {
-    if (
-      contacts.some(
-        contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
-      )
-    ) {
-      return alert(`${newContact.name} is already in contacts!`);
-    }
+  // const [filter, setFilter] = useState('');
+  // useEffect(() => {
+  //   localStorage.setItem('contacts', JSON.stringify(contacts));
+  // }, [contacts]);
 
-    setContacts(prevState => [...prevState, { ...newContact, id: nanoid() }]);
-  };
+  // const addContact = newContact => {
+  //   if (
+  //     contacts.some(
+  //       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
+  //     )
+  //   ) {
+  //     return alert(`${newContact.name} is already in contacts!`);
+  //   }
 
-  const deleteContact = id => {
-    setContacts(prevState => prevState.filter(contact => contact.id !== id));
-  };
+  //   setContacts(prevState => [...prevState, { ...newContact, id: nanoid() }]);
+  // };
 
-  const contactFilter = evt => {
-    setFilter(evt.target.value);
-  };
 
-  const filterContacts = contacts.filter(contact =>
-    contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-  );
 
   return (
     <Container>
       <h2>Phonebook</h2>
-      <ContactForm onAddContact={addContact} />
+      <ContactForm />
       <h2>Contacts</h2>
-      <Filter items={filterContacts} onChange={contactFilter} />
-      <ContactList items={filterContacts} onDelete={deleteContact} />
+      <Filter />
+      <ContactList />
     </Container>
   );
 };

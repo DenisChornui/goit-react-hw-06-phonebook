@@ -1,3 +1,4 @@
+import { useDispatch, useSelector } from 'react-redux';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -7,6 +8,8 @@ import {
   StyledForm,
   StyledLabel,
 } from './ContactForm.styled';
+import { addContact } from 'redux/store';
+import { getContacts } from 'redux/selectors';
 
 const contactFormSchema = Yup.object().shape({
   name: Yup.string().required('This field is required!'),
@@ -14,19 +17,25 @@ const contactFormSchema = Yup.object().shape({
     .matches(/^[0-9-+]+$/, 'Please enter digits, "-" or "+"')
     .required('This field is required!'),
 });
-export const ContactForm = ({ onAddContact }) => {
+
+
+
+export const ContactForm = () => {
+const contacts = useSelector(getContacts)
+const dispatch = useDispatch()
+
   return (
     <Formik
-      initialValues={{
+    initialValues={{
         name: '',
         number: '',
       }}
       validationSchema={contactFormSchema}
       onSubmit={(values, actions) => {
-        onAddContact(values);
+        dispatch(addContact(values))
         actions.resetForm();
       }}
-    >
+      >
       <StyledForm>
         <StyledLabel>
           Name
