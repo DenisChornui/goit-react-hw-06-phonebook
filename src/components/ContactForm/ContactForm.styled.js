@@ -37,7 +37,7 @@ export const StyledBtn = styled.button`
 
 export const StyledField = styled(Field)`
   border: 0.1px solid lightgray;
-  font-size: 20px;
+  font-size: 18px;
   &:focus {
     outline: none;
     box-shadow: 0px 0px 3px 2px lightblue;
